@@ -1,0 +1,17 @@
+#posts
+
+- @posts.each_with_index do |post, index|
+
+  %script
+
+    $("<img/>").attr("src", "#{Post.image_link(post)}").load(function(){
+
+    ratio = this.width / this.height
+
+    window.photos.push({
+    src:"#{Post.image_link(post)}",
+    ratio:ratio
+    });
+
+    $(window).trigger('resize');
+    }); 
