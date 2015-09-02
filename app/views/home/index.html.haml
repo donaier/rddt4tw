@@ -1,0 +1,4 @@
+.gobar
+  %input#subs{ type: 'string', name: 'subs'}
+  = link_to '#', onclick: "window.location.href = '/posts/'+ document.getElementById('subs').value;" do
+    %button Go!
