@@ -1,0 +1,57 @@
+%script{ src: "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js" }
+%script{ src: "https://cdn.rawgit.com/axyz/perfect-layout/master/dist/perfectLayout.min.js" }
+
+%script
+  var photos = [];
+
+#posts
+
+
+- @posts.each_with_index do |post, index|
+
+  %script
+
+    $("<img/>").attr("src", "#{Post.image_link(post)}").load(function(){
+
+    ratio = this.width / this.height
+
+    photos.push({
+    src:"#{Post.image_link(post)}",
+    ratio:ratio
+    });
+
+    }); 
+
+
+:javascript
+
+  $.fn.perfectLayout = function(photos) {
+    const node = this;
+    const perfectRows = perfectLayout(photos, $(this).width(), $(window).height(), {margin: 2});
+    node.empty();
+
+    perfectRows.forEach(function (row) {
+      row.forEach(function (img) {
+        var imgNode = $('<div class="post"></div>');
+        imgNode.css({
+          'width': img.width + 'px',
+          'height': img.height + 'px',
+          'background': 'url(' + img.src + ')',
+          'background-size': 'cover'
+        });
+        node.append(imgNode);
+      });
+    });
+  };
+
+
+  $(document).ready(function() {
+    var gallery = $('#posts');
+
+    gallery.perfectLayout(photos);
+
+    $(window).resize(function() {
+      gallery.perfectLayout(photos);
+    });
+    $(window).trigger('resize');
+  });

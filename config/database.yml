@@ -1,0 +1,28 @@
+production:
+  adapter: mysql2
+  database: "<%=ENV['OPENSHIFT_APP_NAME']%>"
+  username: "<%=ENV['OPENSHIFT_MYSQL_DB_USERNAME']%>"
+  password: "<%=ENV['OPENSHIFT_MYSQL_DB_PASSWORD']%>"
+  host:     <%=ENV['OPENSHIFT_MYSQL_DB_HOST']%>
+  port:     <%=ENV['OPENSHIFT_MYSQL_DB_PORT']%>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+
+development:
+  adapter: postgresql
+  database: rddt4tw_development
+  password:
+  encoding: unicode
+  pool: 5
+  host: localhost
+  port: 5432
+
+test:
+  adapter: postgresql
+  database: rddt4tw_test
+  password:
+  encoding: unicode
+  pool: 5
+  host: localhost
+  port: 5432
