@@ -2,15 +2,17 @@
 
 - @posts.each_with_index do |post, index|
 
-  :javascript
+  - if Post.displayable_photo?(post)
 
-    $("<img/>").attr("src", "#{Post.image_link(post)}").load(function(){
-      ratio = this.width / this.height
+    :javascript
 
-      window.photos.push({
-        src:"#{Post.image_link(post)}",
-        ratio:ratio
+      $("<img/>").attr("src", "#{Post.displayable_photo(post)}").load(function(){
+        ratio = this.width / this.height
+
+        window.photos.push({
+          src:"#{Post.displayable_photo(post)}",
+          ratio:ratio
+        });
+
+        $(window).trigger('resize');
       });
-
-      $(window).trigger('resize');
-    }); 
